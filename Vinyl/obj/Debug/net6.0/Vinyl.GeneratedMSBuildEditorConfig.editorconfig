@@ -28,12 +28,20 @@ build_metadata.AdditionalFiles.CssScope =
 build_metadata.AdditionalFiles.TargetPath = UGFnZXNcRmV0Y2hEYXRhLnJhem9y
 build_metadata.AdditionalFiles.CssScope = 
 
+[C:/Users/jijwe/Desktop/Csharp/Vinyl/Vinyl/Pages/Forum.razor]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcRm9ydW0ucmF6b3I=
+build_metadata.AdditionalFiles.CssScope = 
+
 [C:/Users/jijwe/Desktop/Csharp/Vinyl/Vinyl/Pages/Index.razor]
 build_metadata.AdditionalFiles.TargetPath = UGFnZXNcSW5kZXgucmF6b3I=
 build_metadata.AdditionalFiles.CssScope = 
 
 [C:/Users/jijwe/Desktop/Csharp/Vinyl/Vinyl/Pages/OriginalIndex.razor]
 build_metadata.AdditionalFiles.TargetPath = UGFnZXNcT3JpZ2luYWxJbmRleC5yYXpvcg==
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/jijwe/Desktop/Csharp/Vinyl/Vinyl/Pages/Records.razor]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcUmVjb3Jkcy5yYXpvcg==
 build_metadata.AdditionalFiles.CssScope = 
 
 [C:/Users/jijwe/Desktop/Csharp/Vinyl/Vinyl/Shared/SurveyPrompt.razor]
