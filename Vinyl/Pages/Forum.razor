@@ -9,7 +9,6 @@
         <h4>@thread.Title</h4>
         <p>@thread.Content</p>
         <p>Posted by: @thread.Author | Posted on: @thread.PostedOn.ToShortDateString()</p>
-        <!-- Add more details as needed -->
     </div>
 }
 
@@ -17,16 +16,17 @@
 <form @onsubmit="PostNewThread">
     <h4>Create New Thread</h4>
     <label>Title:</label>
-    <input type="text" bind="@NewThreadTitle" />
+    <input type="text" @bind="NewThreadTitle" />
 
     <label>Content:</label>
-    <textarea bind="@NewThreadContent"></textarea>
+    <textarea @bind="NewThreadContent"></textarea>
 
     <label>Your Name:</label>
-    <input type="text" bind="@NewThreadAuthor" />
+    <input type="text" @bind="NewThreadAuthor" />
 
     <button type="submit">Post</button>
 </form>
+
 
 @code {
     private List<ForumThread>? ForumThreads { get; set; }
@@ -39,17 +39,13 @@
         // Initialize the ForumThreads list with simulated data for illustration purposes
         ForumThreads = new List<ForumThread>
         {
-            new ForumThread { Title = "Thread 1", Content = "Discussion about...", Author = "User1", PostedOn = DateTime.Now.AddDays(-2) },
-            new ForumThread { Title = "Thread 2", Content = "Any recommendations for...", Author = "User2", PostedOn = DateTime.Now.AddDays(-1) },
-            // Add more threads as needed
+            new ForumThread { Title = "Thread 1", Content = "Discussion about...", Author = "User 1", PostedOn = DateTime.Now.AddDays(-2) },
+            new ForumThread { Title = "Thread 2", Content = "Any recommendations for...", Author = "User 2", PostedOn = DateTime.Now.AddDays(-1) },
         };
     }
 
     private void PostNewThread()
     {
-        Console.WriteLine($"New Thread: {NewThreadTitle}");
-
-        // Implement logic to post a new thread
         // Add the new thread to the ForumThreads list
         ForumThreads!.Add(new ForumThread
             {
@@ -59,8 +55,6 @@
                 PostedOn = DateTime.Now
             });
 
-        Console.WriteLine($"New Thread: {NewThreadTitle} by {NewThreadAuthor}");
-
         // Clear input fields after posting
         NewThreadTitle = string.Empty;
         NewThreadContent = string.Empty;
@@ -69,14 +63,13 @@
         // Trigger a re-render of the component
         StateHasChanged();
     }
-
-
+        
+   
     private class ForumThread
     {
         public string? Title { get; set; }
         public string? Content { get; set; }
         public string? Author { get; set; }
         public DateTime PostedOn { get; set; }
-        // Add more details as needed
     }
 }
