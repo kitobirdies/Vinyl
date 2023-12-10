@@ -1,0 +1,155 @@
+﻿@page "/forum"
+
+<h3>Community Forum</h3>
+
+<!-- Iterates over existing forum threads and displays them -->
+@foreach (var thread in ForumThreads!)
+{
+    <div class="forum-thread mt-4">
+        <h4>@thread.Title</h4>
+        <p>@thread.Content</p>
+        <p>Posted by: @thread.Author | Posted on: @thread.PostedOn.ToShortDateString()</p>
+        <button @onclick="() => EditThread(thread)">Edit</button>
+        <button @onclick="() => DeleteThread(thread)">Delete</button>
+    </div>
+}
+
+<!-- Form for posting new threads -->
+@if (SelectedThread == null)
+{
+<form @onsubmit="PostNewThread" class="mt-5">
+    <h4>Create New Thread</h4>
+
+    <div class="form-group">
+    <label>Title:</label>
+        <input type="text" id="NewThreadTitle" class="form-control" @bind="NewThreadTitle" />
+    </div>
+
+    <div class="form-group">
+    <label>Content:</label>
+        <textarea id="NewThreadContent" class="form-control" @bind="NewThreadContent"></textarea>
+    </div>
+
+    <div class="form-group">
+    <label>Your Name:</label>
+        <input type="text" id="NewThreadAuthor" class="form-control" @bind="NewThreadAuthor" />
+    </div>
+
+    <button type="submit">Post</button>
+</form>
+}
+
+<!-- Modal for editing threads -->
+@if (SelectedThread != null)
+{
+    <div class="modal">
+        <h4>Editing thread: @SelectedThread?.Title</h4>
+        <label>Title:</label>
+        <input type="text" @bind="EditedThread!.Title" />
+
+        <label>Content:</label>
+        <textarea @bind="EditedThread!.Content"></textarea>
+
+        <button @onclick="SaveEditedThread">Save Changes</button>
+        <button @onclick="CancelEdit">Cancel</button>
+
+    </div>
+}
+
+
+
+@code {
+    private List<ForumThread>? ForumThreads { get; set; }
+    private ForumThread? SelectedThread { get; set; }
+    private string? NewThreadTitle { get; set; }
+    private string? NewThreadContent { get; set; }
+    private string? NewThreadAuthor { get; set; }
+    private ForumThread? EditedThread { get; set; }
+
+    protected override void OnInitialized()
+    {
+        // Initialize the ForumThreads list with simulated data for illustration purposes
+        ForumThreads = new List<ForumThread>
+        {
+            new ForumThread { Title = "Rawstyle is better than frenchcore", Content = "Who else agrees that...", Author = "User 1", PostedOn = DateTime.Now.AddDays(-2) },
+            new ForumThread { Title = "Natte visstick is underrated", Content = "So I was wondering if...", Author = "User 2", PostedOn = DateTime.Now.AddDays(-1) },
+        };
+    }
+
+    // Handle posting of a new thread
+    private void PostNewThread()
+    {
+        // Add the new thread to the ForumThreads list
+        ForumThreads!.Add(new ForumThread
+            {
+                Title = NewThreadTitle!,
+                Content = NewThreadContent!,
+                Author = NewThreadAuthor!,
+                PostedOn = DateTime.Now
+            });
+
+        // Clear input fields after posting
+        NewThreadTitle = string.Empty;
+        NewThreadContent = string.Empty;
+        NewThreadAuthor = string.Empty;
+
+        // Trigger a re-render of the component
+        StateHasChanged();
+    }
+
+    // Handle deleting a thread
+    private void DeleteThread(ForumThread thread)
+    {
+        ForumThreads!.Remove(thread);
+        StateHasChanged();
+    }
+
+    // Handle editing of a thread
+    private void EditThread(ForumThread thread)
+    {
+        // Creates a copy of the selected thread for editing
+        EditedThread = new ForumThread(thread);
+        SelectedThread = thread;
+    }
+
+    // Save changes after editing a thread
+    private void SaveEditedThread()
+    {
+        if (SelectedThread != null && EditedThread != null)
+        {
+            // Saves changes made during editing to the original thread
+            SelectedThread.Title = EditedThread.Title;
+            SelectedThread.Content = EditedThread.Content;
+        }
+
+        // Reset EditedThread and close the modal
+        EditedThread = null;
+        SelectedThread = null;
+    }
+
+    // Cancel editing and close the modal
+    private void CancelEdit()
+    {
+        // Cancels editing, resets EditedThread, and closes the modal
+        SelectedThread = null;
+    }
+   
+    private class ForumThread
+    {
+        public string? Title { get; set; }
+        public string? Content { get; set; }
+        public string? Author { get; set; }
+        public DateTime PostedOn { get; set; }
+
+        public ForumThread() { }
+
+        // Copy constructor
+        public ForumThread(ForumThread other)
+        {
+            Title = other.Title;
+            Content = other.Content;
+            Author = other.Author;
+            PostedOn = other.PostedOn;
+        }
+    }
+}
