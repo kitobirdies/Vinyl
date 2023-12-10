@@ -5,7 +5,7 @@
 <!-- Iterates over existing forum threads and displays them -->
 @foreach (var thread in ForumThreads!)
 {
-    <div class="forum-thread">
+    <div class="forum-thread mt-4">
         <h4>@thread.Title</h4>
         <p>@thread.Content</p>
         <p>Posted by: @thread.Author | Posted on: @thread.PostedOn.ToShortDateString()</p>
@@ -14,19 +14,29 @@
 }
 
 <!-- Form for posting new threads -->
-<form @onsubmit="PostNewThread">
+@if (SelectedThread == null)
+{
+<form @onsubmit="PostNewThread" class="mt-5">
     <h4>Create New Thread</h4>
+
+    <div class="form-group">
     <label>Title:</label>
-    <input type="text" @bind="NewThreadTitle" />
+        <input type="text" id="NewThreadTitle" class="form-control" @bind="NewThreadTitle" />
+    </div>
 
+    <div class="form-group">
     <label>Content:</label>
-    <textarea @bind="NewThreadContent"></textarea>
+        <textarea id="NewThreadContent" class="form-control" @bind="NewThreadContent"></textarea>
+    </div>
 
+    <div class="form-group">
     <label>Your Name:</label>
-    <input type="text" @bind="NewThreadAuthor" />
+        <input type="text" id="NewThreadAuthor" class="form-control" @bind="NewThreadAuthor" />
+    </div>
 
     <button type="submit">Post</button>
 </form>
+}
 
 <!-- Modal for editing threads -->
 @if (SelectedThread != null)

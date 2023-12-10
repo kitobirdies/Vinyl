@@ -101,3 +101,7 @@ a, .btn-link {
         .modal button:hover {
             background-color: #0056b3;
         }
+
+        .form-group {
+            margin-bottom: 15px;
+        }
