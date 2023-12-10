@@ -10,6 +10,7 @@
         <p>@thread.Content</p>
         <p>Posted by: @thread.Author | Posted on: @thread.PostedOn.ToShortDateString()</p>
         <button @onclick="() => EditThread(thread)">Edit</button>
+        <button @onclick="() => DeleteThread(thread)">Delete</button>
     </div>
 }
 
@@ -51,6 +52,7 @@
 
         <button @onclick="SaveEditedThread">Save Changes</button>
         <button @onclick="CancelEdit">Cancel</button>
+
     </div>
 }
 
@@ -95,6 +97,13 @@
         StateHasChanged();
     }
 
+    // Handle deleting a thread
+    private void DeleteThread(ForumThread thread)
+    {
+        ForumThreads!.Remove(thread);
+        StateHasChanged();
+    }
+
     // Handle editing of a thread
     private void EditThread(ForumThread thread)
     {
@@ -124,7 +133,6 @@
         // Cancels editing, resets EditedThread, and closes the modal
         SelectedThread = null;
     }
-        
    
     private class ForumThread
     {
