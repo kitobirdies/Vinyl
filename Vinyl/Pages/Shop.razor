@@ -1,0 +1,33 @@
+﻿@page "/shop"
+
+<h3>Shop</h3>
+
+@foreach (var item in VinylItems!)
+{
+    <div class="item-card">
+        <h4>@item.Title</h4>
+        <p>Artist: @item.Artist</p>
+        <p>Release Year: @item.ReleaseYear</p>
+    </div>
+}
+
+@code {
+    private List<VinylItem>? VinylItems { get; set; }
+
+    protected override void OnInitialized()
+    {
+        // Simulated data for illustration purposes
+        VinylItems = new List<VinylItem>
+        {
+            new VinylItem { Title = "Album 1", Artist = "Artist A", ReleaseYear = 1980 },
+            new VinylItem { Title = "Album 2", Artist = "Artist B", ReleaseYear = 1995 },
+        };
+    }
+
+    private class VinylItem
+    {
+        public string? Title { get; set; }
+        public string? Artist { get; set; }
+        public int ReleaseYear { get; set; }
+    }
+}
